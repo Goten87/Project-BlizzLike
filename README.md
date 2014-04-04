@@ -3,7 +3,7 @@
 ## About
 
 What is this project about.
-Well i want to provide a solid and complete LUA script download.
+Well i want to provide a solid and complete LUA script download for [Arcemu][3].
 I want it to be as much as blizz-like as posebol.
 
 
@@ -22,4 +22,5 @@ If u have tested on other OS and it works please make a bug report that its work
 
 
 [1]: https://github.com/Goten87
-[2]: https://github.com/DarkAngel39
+[2]: https://github.com/DarkAngel39 
+[3]: http://www.arcemu.org/
