@@ -17,5 +17,12 @@ Tested on
 
 If u have tested on other OS and it works please make a bug report that its working so i can add it
 
+About
+=====
+What is this project about.
+Well i want to provide a solid and complete LUA script download.
+I want it to be as much as blizz-like as posebol.
+
+
 [1]: https://github.com/Goten87
 [2]: https://github.com/DarkAngel39
