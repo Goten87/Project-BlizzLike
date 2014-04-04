@@ -3,7 +3,7 @@
 ## About
 
 What is this project about.
-* Well i want to provide a solid and complete LUA script download for [Arcemu][3].
+* I want to provide a solid and complete LUA script download for [Arcemu][3].
 * I want it to be as much as blizz-like as posebol.
 
 
