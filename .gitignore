@@ -140,7 +140,7 @@ csx
 AppPackages/
 
 # Others
-test/
+Test/
 sql/
 *.Cache
 ClientBin/
