@@ -1,9 +1,9 @@
 --[[--//////////////////////////////////
---//// © Holystone Productions  ////
+--//// ï¿½ Holystone Productions  ////
 --////     Cronic & Warfrost    ////
 --////       Copy Right         ////
 --////  Blizzlike Repack v 2.5  ////
---//////////////////////////////////
+--//////////////////////////////////]]--
 
 function Dk_Pestilence_Fixe(event, plr, spellid)
 local FriendTarget = Target:GetInRangeFriends()
