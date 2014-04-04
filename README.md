@@ -13,7 +13,7 @@ Team
 
 Tested on
 =======
-Ubuntu Server Linux 12.04.4 (64 bit)
+* Ubuntu Server Linux 12.04.4 (64 bit)
 
 If u have tested on other OS and it works please make a bug report that its working so i can add it
 
