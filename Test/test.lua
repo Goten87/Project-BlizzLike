@@ -1,3 +1,4 @@
+-- needs to be a world massage if someone loots a legendary item
 Legendary = {}
 UnitID = 999999
 
