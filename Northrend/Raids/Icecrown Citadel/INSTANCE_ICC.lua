@@ -32,9 +32,19 @@ local object_link = {
 {-2,202223}
 }
 local scourge_ports = {{202246},{202245},{202244},{202243},{202242},{202235},{202223}}
-local tele_coords = {{1,70781},{2,70856},{3,70857},{4,70858},{5,70859},{6,70861},{7,70860}}
+local tele_coords = {
+{1,70781,-17.1928,2211.44,30.1158,0},
+{2,70856,-503.62,2211.47,62.8235,0},
+{3,70857,-615.145,2211.47,199.972,0},
+{4,70858,-549.131,2211.29,539.291,0},
+{5,70859,4198.42,2769.22,351.065,0},
+{6,70861,4356.58,2565.75,220.4,0},
+{7,70860,528.39,-2124.84,1040.86,0}
+}
+
 local SPELL_CHILL = 69127
 local SPELL_FROZEN_THRONE_T = 70860
+local MAP_ICC = 631
 
 function DoorOnLoad(iid, pPlayer)
 local id = pPlayer:GetInstanceID()
@@ -175,17 +185,48 @@ function TeleporterOnSelect(pGO, event, pPlayer, id, intid, code)
 for i = 1, #tele_coords do
 	if(intid == tele_coords[i][1])then
 		pPlayer:CastSpell(tele_coords[i][2])
+		pPlayer:Teleport(MAP_ICC,tele_coords[i][3],tele_coords[i][4],tele_coords[i][5],tele_coords[i][6])
 	end
 end
 pPlayer:GossipComplete()
 end
- --[[
-function DummySpellTeleport(spellIndex, pSpell)
-local caster = pSpell:GetCaster() -- TODO: Script the teleport spells.
-caster:Teleport(631,)
+
+function OnZoneOut(event, pPlayer, ZoneId, OldZoneId)
+if(pPlayer:GetMapId() ~= MAP_ICC and pPlayer:HasAura(SPELL_CHILL))then
+	pPlayer:RemoveAura(SPELL_CHILL)
 end
-]]--
-RegisterInstanceEvent(631,2,DoorOnLoad)
+end
+
+function KillBoss(id, pVictim, pKiller)
+local id = pKiller:GetInstanceID()
+if(pVictim:IsCreature() and pVictim:GetEntry() == 36612)then
+	INSTANCE_ICC[id].marrowgar = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36855)then
+	INSTANCE_ICC[id].deathwhisper = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 37813)then
+	INSTANCE_ICC[id].saurfang = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36626)then
+	INSTANCE_ICC[id].festergut = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36627)then
+	INSTANCE_ICC[id].rotface = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36678)then
+	INSTANCE_ICC[id].prof = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 37970)then
+	INSTANCE_ICC[id].prince = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 37955)then
+	INSTANCE_ICC[id].bloodqueen = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36789)then
+	INSTANCE_ICC[id].dreamwalker = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36853)then
+	INSTANCE_ICC[id].sindragosa = true
+elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36597)then
+	INSTANCE_ICC[id].lichking = true
+end
+end
+
+RegisterServerHook(15,OnZoneOut)
+RegisterInstanceEvent(MAP_ICC,2,DoorOnLoad)
+RegisterInstanceEvent(MAP_ICC,5,KillBoss)
 for i = 1, #object_link do
 RegisterGameObjectEvent(object_link[i][2],2,OnGOpush)
 end
