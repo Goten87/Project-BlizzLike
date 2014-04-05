@@ -9,7 +9,7 @@ What is this project about.
 
 ## Team
 
-* [Goten87][1] - Project leader
+* [Goten87][1] - Project Leader / Coder
 * [Satanail][2] - Main Coder
 * LoE team - For the world event scripts and databases
 * Domicroat - For some scripts (that Goten87 have a lot of fixes for)
