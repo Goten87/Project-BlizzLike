@@ -163,20 +163,20 @@ end
 
 function TeleportOnGossip(pGO, event, pPlayer)
 local id = pPlayer:GetInstanceID()
-pGO:GossipCreateMenu(100, pPlayer, 0)
-pGO:GossipMenuAddItem(0,"Light's Hammer", 1, 0)
+pGO:GossipCreateMenu(15221, pPlayer, 0)
+pGO:GossipMenuAddItem(0,"Teleport to the Light's Hammer.", 1, 0)
 if(INSTANCE_ICC[id].marrowgar)then
-	pGO:GossipMenuAddItem(0,"Oratory of the Damned", 2, 0)
+	pGO:GossipMenuAddItem(0,"Teleport to the Oratory of the Damned.", 2, 0)
 end
 if(INSTANCE_ICC[id].deathwhisper)then
-	pGO:GossipMenuAddItem(0,"Rampart of Skulls", 3, 0)
-	pGO:GossipMenuAddItem(0,"Deathbringer's Rise", 4, 0) -- gunship battle needs core support.
+	pGO:GossipMenuAddItem(0,"Teleport to the Rampart of Skulls.", 3, 0)
+	pGO:GossipMenuAddItem(0,"Teleport to the Deathbringer's Rise.", 4, 0) -- gunship battle needs core support.
 end
 if(INSTANCE_ICC[id].saurfang)then
-	pGO:GossipMenuAddItem(0,"The Upper Spire", 5, 0)
+	pGO:GossipMenuAddItem(0,"Teleport to the The Upper Spire.", 5, 0)
 end
 if(INSTANCE_ICC[id].sindragosa)then
-	pGO:GossipMenuAddItem(0,"The Frost Queen's Lair", 6, 0)
+	pGO:GossipMenuAddItem(0,"Teleport to the The Frost Queen's Lair.", 6, 0)
 end
 pGO:GossipSendMenu(pPlayer)
 end
