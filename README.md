@@ -1,4 +1,4 @@
-# BlizzLike Scripts
+# Project BlizzLike
 
 ## About
 
