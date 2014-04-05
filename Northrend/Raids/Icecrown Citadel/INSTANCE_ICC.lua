@@ -45,6 +45,8 @@ local tele_coords = {
 local SPELL_CHILL = 69127
 local SPELL_FROZEN_THRONE_T = 70860
 local MAP_ICC = 631
+local SPELL_A_BUFF = 73828
+local SPELL_H_BUFF = 73822
 
 function DoorOnLoad(iid, pPlayer)
 local id = pPlayer:GetInstanceID()
@@ -52,6 +54,7 @@ if(INSTANCE_ICC[id] == nil)then
 	local string_data = {}
 	INSTANCE_ICC[id] = {}
 	INSTANCE_ICC[id].builddata = true
+	INSTANCE_ICC[id].buff = true
 	local result = CharDBQuery("SELECT killed_npc_guids FROM instances WHERE id="..id..";")
 	if(result ~= nil)then
 		local colcount = result:GetColumnCount();
@@ -109,6 +112,13 @@ end
 if(INSTANCE_ICC[id].lichking ~= true and pPlayer:HasAura(SPELL_CHILL) == false)then
 	SetDBCSpellVar(SPELL_CHILL, "c_is_flags", 0x01000)
 	pPlayer:CastSpell(SPELL_CHILL)
+end
+if(INSTANCE_ICC[id].buff == true)then
+	if(pPlayer:GetTeam() == 0 and not pPlayer:HasAura(SPELL_A_BUFF))then
+		pPlayer:CastSpell(SPELL_A_BUFF)
+	elseif(pPlayer:GetTeam() == 1 and not pPlayer:HasAura(SPELL_H_BUFF))then
+		pPlayer:CastSpell(SPELL_H_BUFF)
+	end
 end
 end
 
@@ -183,17 +193,29 @@ end
 
 function TeleporterOnSelect(pGO, event, pPlayer, id, intid, code)
 for i = 1, #tele_coords do
-	if(intid == tele_coords[i][1])then
+	if(intid == tele_coords[i][1] and not pPlayer:IsInCombat())then
 		pPlayer:CastSpell(tele_coords[i][2])
 		pPlayer:Teleport(MAP_ICC,tele_coords[i][3],tele_coords[i][4],tele_coords[i][5],tele_coords[i][6])
+		pPlayer:GossipComplete()
+	elseif(pPlayer:IsInCombat())then
+		pPlayer:SendAreaTriggerMessage("You are in combat!")
+		pPlayer:GossipComplete()
 	end
 end
 pPlayer:GossipComplete()
 end
 
 function OnZoneOut(event, pPlayer, ZoneId, OldZoneId)
-if(pPlayer:GetMapId() ~= MAP_ICC and pPlayer:HasAura(SPELL_CHILL))then
-	pPlayer:RemoveAura(SPELL_CHILL)
+if(pPlayer:GetMapId() ~= MAP_ICC)then
+	if(pPlayer:HasAura(SPELL_CHILL))then
+		pPlayer:RemoveAura(SPELL_CHILL)
+	end
+	if(pPlayer:HasAura(SPELL_A_BUFF))then
+		pPlayer:RemoveAura(SPELL_A_BUFF)
+	end
+	if(pPlayer:HasAura(SPELL_H_BUFF))then
+		pPlayer:RemoveAura(SPELL_H_BUFF)
+	end
 end
 end
 
@@ -224,6 +246,11 @@ elseif(pVictim:IsCreature() and pVictim:GetEntry() == 36597)then
 end
 end
 
+function InstanceDestroy(id)
+INSTANCE_ICC[id] = nil
+end
+
+RegisterInstanceEvent(MAP_ICC,10,InstanceDestroy)
 RegisterServerHook(15,OnZoneOut)
 RegisterInstanceEvent(MAP_ICC,2,DoorOnLoad)
 RegisterInstanceEvent(MAP_ICC,5,KillBoss)
